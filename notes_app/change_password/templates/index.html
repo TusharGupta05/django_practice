@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label>Reset your password<label>
+        <input type="password" name="password1" placeholder="Enter new password" minlength="6">
+        <input type="password" name="password2" placeholder="Confirm new password" minlength="6">
+        <input type="submit" value="Submit">
+    </form>
+    
+</body>
+
+</html>

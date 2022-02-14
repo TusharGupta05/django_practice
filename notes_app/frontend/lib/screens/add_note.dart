@@ -84,8 +84,6 @@ class AddNote extends StatelessWidget {
                 expands: true,
                 minLines: null,
                 textAlignVertical: TextAlignVertical.top,
-                // minLines: ((MediaQuery.of(context).size.height - 100) / 25)
-                //     .toInt(),
                 decoration: InputDecoration(
                   alignLabelWithHint: true,
                   labelText: 'Description',

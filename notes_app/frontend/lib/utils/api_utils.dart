@@ -2,8 +2,8 @@ import 'package:http/http.dart';
 import 'package:notes_app/enums/method_type.dart';
 import 'package:notes_app/models/user.dart';
 
-Future<Response> makeApiCall(
-    String url, MethodType methodType, Map<String, dynamic> body) async {
+Future<Response> makeApiCall(String url, MethodType methodType,
+    {Map<String, dynamic>? body}) async {
   late Response response;
   Map<String, String> headers = {'Authorization': 'Token ${User().token}'};
   if (methodType == MethodType.get) {

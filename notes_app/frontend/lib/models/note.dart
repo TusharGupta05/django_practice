@@ -26,15 +26,24 @@ class Note {
   Future<bool> postNote() async {
     late Response response;
     if (id == null) {
-      response =
-          await makeApiCall(ApiConstants.notesList, MethodType.post, toMap());
+      response = await makeApiCall(ApiConstants.notesList, MethodType.post,
+          body: toMap());
     } else {
       response = await makeApiCall(
-          '${ApiConstants.notesList}$id', MethodType.put, toMap());
+        '${ApiConstants.notesList}$id',
+        MethodType.put,
+        body: toMap(),
+      );
     }
     if ([200, 201, 202].contains(response.statusCode)) {
       return true;
     }
     return false;
+  }
+
+  Future<bool> deleteNote() async {
+    Response response =
+        await makeApiCall(ApiConstants.notesList + '$id', MethodType.delete);
+    return ApiConstants.successCodes.contains(response.statusCode);
   }
 }

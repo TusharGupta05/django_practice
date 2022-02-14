@@ -55,13 +55,15 @@ class User {
     Response response = await makeApiCall(
       ApiConstants.changePasswordUrl,
       MethodType.post,
-      {'old_password': oldPassword, 'new_password': newPassword},
+      body: {'old_password': oldPassword, 'new_password': newPassword},
     );
     // print(response.body);
     if (ApiConstants.successCodes.contains(response.statusCode)) {
       return null;
     }
-    String msg = jsonDecode(response.body)['msg'] ?? '';
+    String msg = response.statusCode == 404
+        ? 'User does not exist.'
+        : jsonDecode(response.body)['msg'] ?? '';
     return msg;
   }
 

@@ -72,17 +72,25 @@ class ForgotPasswordScreen extends StatelessWidget {
                             MaterialStateProperty.all(Colors.transparent)),
                     onPressed: () async {
                       Response response = await makeApiCall(
-                          ApiConstants.forgotPasswordUrl,
-                          MethodType.post,
-                          {'email': user.email});
+                          ApiConstants.forgotPasswordUrl, MethodType.post,
+                          body: {'email': user.email});
                       if (ApiConstants.successCodes
                           .contains(response.statusCode)) {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
                             content: Text(
-                                'Password reset email sent successfully. Please check your inbox.')));
+                                'Password reset email sent successfully. Please check your inbox.'),
+                          ),
+                        );
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(jsonDecode(response.body)['msg'])));
+                        String msg = response.statusCode == 404
+                            ? 'User does not exist.'
+                            : jsonDecode(response.body)['msg'];
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(msg),
+                          ),
+                        );
                       }
                     },
                     child: Text(
